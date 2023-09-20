@@ -13,9 +13,8 @@ using namespace std;
 
 int main()
 {
-    double val, K, b, n1, n2, n3, y, a, T1, T2;
+    double K, b, n1, n2, n3, y, a, T1, T2;
     a = 5.54;
-    val = 4;
     y = 1.45;
     b = 3.93;
     T1 = 288;
@@ -30,3 +29,4 @@ int main()
 
     return 0;
 }
+
