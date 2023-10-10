@@ -2,7 +2,7 @@
 * Автор:   Воронков.А.А                                  *
 * Дата:    06.10.2023                                    *
 * Название: Циклы с ветвлением, вариант 4                * 
-* https://onlinegdb.com/QplR4Gi_I                        *
+* https://onlinegdb.com/6_fTZpJiF                        *
 **********************************************************/
 #include <iostream>
 
@@ -13,8 +13,11 @@ using namespace std;
 int main() {
     
     float W, Pe, Re, Ga, A;
-    Re = 6.1 * pow(10, 4);
-    Ga = 0.9 * pow(10, 5);
+    
+    cout << "Введите Re - ";
+    cin >> Re;
+    cout << "Введите Ga - ";
+    cin >> Ga;
     W = 0.1;
     
     while (W < 0.9) {
