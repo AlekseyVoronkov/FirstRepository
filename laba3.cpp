@@ -2,17 +2,16 @@
 * Автор:   Воронков.А.А                                  *
 * Дата:    06.10.2023                                    *
 * Название: Циклы с ветвлением, вариант 4                * 
-* https://onlinegdb.com/6_fTZpJiF                        *
+* https://onlinegdb.com/5GCr0wuHa                        *
 **********************************************************/
 #include <iostream>
-
 #include <cmath>
 
 using namespace std;
 
 int main() {
     
-    float W, Pe, Re, Ga, A;
+    double W, Pe, Re, Ga, A;
     
     cout << "Введите Re - ";
     cin >> Re;
