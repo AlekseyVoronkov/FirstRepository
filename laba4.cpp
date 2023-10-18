@@ -2,39 +2,39 @@
 * Автор:   Воронков.А.А                                  *
 * Дата:    11.10.2023                                    *
 * Название: Обработка массивов, вариант 4                * 
-* https://onlinegdb.com/3Nm4xCrkS                        *
+* https://onlinegdb.com/joLJS2YYo                        *
 **********************************************************/
 #include <iostream>
 using namespace std;
 
 int main() {
     
-    int n, Summa, elm, i, j;
+    int rows_colums, Summa, elm, row, column;
 
     cout << "Введите колличество строк и столбцов = ";
-    cin >> n;
+    cin >> rows_colums;
     cout << "Введите элементы матрицы = " << endl;
     
-    int matrix [n][n];
+    int matrix [rows_colums][rows_colums];
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            cout << "i=" << i << " j=" << j << "  ";
-            cin >> matrix[i][j];
+    for (int row = 0; row < rows_colums; ++row) {
+        for (int column = 0; column < rows_colums; ++column) {
+            cout << "i=" << row << " j=" << column << "  ";
+            cin >> matrix[row][column];
         }
     }
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            cout << " " << matrix[i][j] << " ";
+    for (int row = 0; row < rows_colums; ++row) {
+        for (int column = 0; column < rows_colums; ++column) {
+            cout << " " << matrix[row][column] << " ";
         }
         cout << endl;
     }
 
-    for (Summa = i = 0; i < n; ++i) {
-        for (j = 0; j < n; ++j) {
-            if (i < j and matrix [i][j] > 0) {
-                Summa += matrix [i][j];
+    for (Summa = row = 0; row < rows_colums; ++row) {
+        for (column = 0; column < rows_colums; ++column) {
+            if (row < column and matrix [row][column] > 0) {
+                Summa += matrix [row][column];
                 elm += 1;
             }
         }
@@ -45,3 +45,5 @@ int main() {
 
     return 0;
 }
+
+
