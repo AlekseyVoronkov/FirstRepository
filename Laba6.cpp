@@ -1,78 +1,48 @@
 /*********************************************************
 * Автор:   Воронков.А.А                                  *
-* Дата:    20.10.2023                                    *
-* Название: Использование процедур и функций, вариант 4  * 
-* https://onlinegdb.com/uKidEikvw                        *
+* Дата:    30.10.2023                                    *
+* Название: Работа с файлами, вариант 4                  * 
+* https://onlinegdb.com/HM_I5gsgh                        *
 **********************************************************/
-#include <iostream>
-
-using namespace std;
-
-void FillArray(double array[], int sizeArray) {
-  for (int index = 0; index < sizeArray; ++index) {
-    cout << index + 1 << ". ";
-    cin  >> array[index];
-  }
+#include <stdio.h>  
+#include <stdlib.h>  
+#include <string.h>  
+ 
+struct Cube {  
+    double size;
+    char color[20];
+    int id;
+};  
+ 
+int main() {  
+    const int MAX_SIZE = 100;
+    Cube cubes[MAX_SIZE];
+    double total_volume = 0;  
+    char UserColor[20];
+    
+    printf("Please, chose a color - ");
+    scanf("%s", UserColor);
+ 
+    FILE* fin = fopen("CubeInfo.txt", "r");
+ 
+    if (!fin) {
+        printf("File can't be opened!\n");  
+        return -1;  
+    }
+    
+    int CubeNumber = 0;   
+  
+    while (fscanf(fin, "%lf %s %d", &cubes[CubeNumber].size, cubes[CubeNumber].color, &cubes[CubeNumber].id) != EOF) { 
+        if (strcmp(cubes[CubeNumber].color, UserColor) == 0) {
+            printf( "%s %lf %d\n", cubes[CubeNumber].color, cubes[CubeNumber].size, cubes[CubeNumber].id);
+            total_volume += cubes[CubeNumber].size * cubes[CubeNumber].size * cubes[CubeNumber].size;
+        }
+        ++CubeNumber;
+    }
+   
+    fclose(fin);   
+   
+    printf("Total volume of cubes: %.2lf cm^3\n", total_volume);    
+   
+    return 0;    
 }
-
-void OutArray(double array[], int sizeArray) {
-  cout << "[";
-  
-  for (int index = 0; index < sizeArray; ++index) {
-    cout << " " << array[index];
-  }
-  
-  cout << " ]";
-}
-
-double ArithmeticMean(double array[], int sizeArray, int index = 0) {
-  double Summ;    
-  for (int index = 0; index < sizeArray; ++index) {
-      if (array[index] < 0) {
-          Summ += array[index];
-      } 
-  }
-  return Summ / sizeArray;
-}
-      
-
-int main() {
-  int k, n;
-  
-  cout << "Введите количество элементов массива F: ";
-  cin  >> k;
-  cout << "Введите количество элементов массива G: ";
-  cin  >> n;
-  cout << endl;
-  
-  double F[k], G[n];
-  
-  cout << "Заполните массив F: " << endl;
-  FillArray(F, k);
-  cout << endl;
-  
-  cout << "Заполните массив G: " << endl;
-  FillArray(G, n);
-  cout << endl;
-
-  cout << "Массив F: " << endl;
-  OutArray(F, k);
-  cout << endl << "Среднее арифметическое отрицательных элементов массива F : " << ArithmeticMean(F, k) << endl << endl;
-  
-  cout << "Массив G: " << endl;
-  OutArray(G, n);
-  cout << endl << "Среднее арифметическое отрицательных элементов массива G: " << ArithmeticMean(G, n) << endl << endl;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
