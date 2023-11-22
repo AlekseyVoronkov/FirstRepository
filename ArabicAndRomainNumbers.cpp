@@ -7,20 +7,22 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <unordered_map>
 #include <map>
-
+#include <unordered_map>
 using namespace std;
 
 int romanToArabic(const string romanNumeral) {
-    map<char, int> romanNumerals = {
+    map<char, int>
+    romanNumerals = {
         {'I', 1},
         {'V', 5},
         {'X', 10},
         {'L', 50},
         {'C', 100},
         {'D', 500},
-        {'M', 1000}
+        {'M', 1000},
+        {'V̄', 5000},
+        {'X̄', 10000}
     };
 
     int result = 0;
@@ -44,6 +46,8 @@ int romanToArabic(const string romanNumeral) {
 string arabicToRoman(int num) {
     vector<pair<int, string>>
     romanNumerals = {
+        {10000, "X̄"},
+        {5000, "V̄"},
         {1000, "M"},
         {900, "CM"},
         {500, "D"},
@@ -60,13 +64,15 @@ string arabicToRoman(int num) {
     };
 
     string result = "";
+    int index = 0;
 
-    for (const auto numeral : romanNumerals) {
+    for (auto numeral : romanNumerals) {
         while (num >= numeral.first) {
             result += numeral.second;
             num -= numeral.first;
         }
     }
+ 
 
     return result;
 }
@@ -81,7 +87,6 @@ int main() {
     cin >> choise;
     
     if (choise == 1) {
-        
         cout << "Enter a Romain number: ";
         cin >> romanNumeral;
         
@@ -91,7 +96,6 @@ int main() {
     }
     
     if (choise == 2) {
-        
         cout << "Enter a Arabic number: ";
         cin >> num;
 
@@ -101,7 +105,6 @@ int main() {
     }
     
     if (choise < 1 || choise > 3) {
-        
         cout << "Введите либо 1 либо 2";
     }
     
