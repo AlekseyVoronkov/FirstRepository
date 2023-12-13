@@ -1,8 +1,8 @@
 /*********************************************************
 * Автор:   Воронков.А.А                                  *
 * Дата:    13.12.2023                                    *
-* Название: Змейка                                       * 
-* https://onlinegdb.com/lUjzHilcY                        *
+* Название: Змейка                                       *
+* https://onlinegdb.com/ghWs32zBg0                       *
 **********************************************************/
 #include <conio.h> 
 #include <iostream> 
@@ -120,8 +120,20 @@ void UpdateGame() {
 	}
 
 
-	if (snakeHeadX >= width || snakeHeadX < 0 || snakeHeadY >= height || snakeHeadY < 0) {
-		isGameOver = true;
+	if (snakeHeadX >= width) {
+		snakeHeadX = 0;
+	}
+
+	if (snakeHeadX < 0) {
+		snakeHeadX = width - 1;
+	}
+
+	if (snakeHeadY >= height) {
+		snakeHeadY = 0;
+	}
+
+	if (snakeHeadY < 0) {
+		snakeHeadY = height - 1;
 	}
 
 
@@ -145,8 +157,8 @@ int SetDifficulty() {
 	int dfc, choice;
 
 	cout << endl << "SET DIFFICULTY:" << endl << "1 - Easy" << endl << "2 - Medium" << endl << "3 - Hard" << endl
-		 << "4 - Insane" << endl << "If not chosen or pressed any other key, the difficulty will be automatically set to medium"
-		 << endl << "Choose the difficulty: ";
+		<< "4 - Insane" << endl << "If not chosen or pressed any other key, the difficulty will be automatically set to medium"
+		<< endl << "Choose the difficulty: ";
 	cin >> choice;
 
 	if (choice == 1) {
@@ -155,7 +167,7 @@ int SetDifficulty() {
 	}
 
 	if (choice == 2) {
-		dfc = 10;
+		dfc = 100;
 		plusPoints = 10;
 	}
 
