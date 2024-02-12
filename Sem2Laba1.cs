@@ -2,7 +2,7 @@
 * Автор:   Воронков.А.А                                  *
 * Дата:    07.02.2024                                    *
 * Название: Базовые понятия языка C#                     * 
-* https://onlinegdb.com/R8rYCeY-SF                       *
+* https://onlinegdb.com/1Fh3bVESD                        *
 **********************************************************/
 using System;
 class HelloWorld {
@@ -19,7 +19,7 @@ class HelloWorld {
       if (userPower == 0) {
           userNumberA = 1;
       } else {
-          for (int index = 1; index < userPower; index++) {
+          for (int index = 1; index < userPower; ++index) {
               firstTaskResult *= userNumberA;
           }
       }
@@ -34,3 +34,4 @@ class HelloWorld {
       Console.WriteLine($"Number n = {secondTaskResult}");
   }
 }
+
