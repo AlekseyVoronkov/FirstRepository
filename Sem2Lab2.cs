@@ -1,104 +1,130 @@
 /*********************************************************
 * Автор:   Воронков.А.А                                  *
-* Дата:    12.02.2024                                    *
-* Название: ООП на  C#                                   * 
-* https://onlinegdb.com/H0ue_71tp                        *
+* Дата:    16.02.2024                                    *
+* Название: ООП на C#                                    * 
+* https://onlinegdb.com/60qDbjhP4                        *
 **********************************************************/
 using System;
+
 public class Document {
-    public string Name { get; set; }
-    public string Author { get; set; }
-    public string[] Keywords { get; set; }
-    public string Theme { get; set; }
-    public string FilePath { get; set; }
+    public string DocumentName { get; set; }
+    public string DocumentAuthor { get; set; }
+    public string[] DocumentKeywords { get; set; }   
+    public string DocumentTheme { get; set; }
+    public string DocumentFilePath { get; set; }
+    public virtual void GetDocumentInfo() {
+        Console.WriteLine($"Document: {DocumentName}");
+        Console.WriteLine($"Author: {DocumentAuthor}");
+        Console.WriteLine($"Keywords: {string.Join(", ", DocumentKeywords)}");
+        Console.WriteLine($"Theme: {DocumentTheme}");
+        Console.WriteLine($"File Path: {DocumentFilePath}");
+    }
 }
 
-public class WordDocument : Document {
-    public int PageCount { get; set; }
+public class MSWordDocument : Document {
+    public int MSWordDocumentPageCount { get; set; }
+    public override void GetDocumentInfo() {
+        Console.WriteLine($"Document: {DocumentName}");
+        Console.WriteLine($"Author: {DocumentAuthor}");
+        Console.WriteLine($"Keywords: {string.Join(", ", DocumentKeywords)}");
+        Console.WriteLine($"Theme: {DocumentTheme}");
+        Console.WriteLine($"File Path: {DocumentFilePath}");
+        Console.WriteLine($"Page Count: {MSWordDocumentPageCount}");
+    }
 }
 
-public class PdfDocument : Document {
-    public bool IsProtected { get; set; }
+public class PDFDocument : Document {
+    public bool PDFDocumentIsSecured { get; set; }
+    public override void GetDocumentInfo() {
+        Console.WriteLine($"Document: {DocumentName}");
+        Console.WriteLine($"Author: {DocumentAuthor}");
+        Console.WriteLine($"Keywords: {string.Join(", ", DocumentKeywords)}");
+        Console.WriteLine($"Theme: {DocumentTheme}");
+        Console.WriteLine($"File Path: {DocumentFilePath}");
+        Console.WriteLine($"Is Secured: {PDFDocumentIsSecured}");
+    }
 }
 
-public class ExcelDocument : Document {
-    public int WorksheetCount { get; set; }
+public class MSExcelDocument : Document {
+    public string MSExcelDocumentCreationDate { get; set; }
+    public override void GetDocumentInfo() {
+        Console.WriteLine($"Document: {DocumentName}");
+        Console.WriteLine($"Author: {DocumentAuthor}");
+        Console.WriteLine($"Keywords: {string.Join(", ", DocumentKeywords)}");
+        Console.WriteLine($"Theme: {DocumentTheme}");
+        Console.WriteLine($"File Path: {DocumentFilePath}");
+        Console.WriteLine($"Creation Date: {MSExcelDocumentCreationDate}");
+    }
 }
 
-public class TxtDocument : Document {
-    public int LineCount { get; set; }
+public class TXTDocument : Document {
+    public int TXTDocumentWordCount { get; set; }
+    public override void GetDocumentInfo() {
+        Console.WriteLine($"Document: {DocumentName}");
+        Console.WriteLine($"Author: {DocumentAuthor}");
+        Console.WriteLine($"Keywords: {string.Join(", ", DocumentKeywords)}");
+        Console.WriteLine($"Theme: {DocumentTheme}");
+        Console.WriteLine($"File Path: {DocumentFilePath}");
+        Console.WriteLine($"Word Count: {TXTDocumentWordCount}");
+    }
 }
 
-public class HtmlDocument : Document {
-    public string[] Hyperlinks { get; set; }
+public class HTMLDocument : Document {
+    public string[] HTMLDocumentHyperlinks { get; set; }
+    public override void GetDocumentInfo() {
+        Console.WriteLine($"Document: {DocumentName}");
+        Console.WriteLine($"Author: {DocumentAuthor}");
+        Console.WriteLine($"Keywords: {string.Join(", ", DocumentKeywords)}");
+        Console.WriteLine($"Theme: {DocumentTheme}");
+        Console.WriteLine($"File Path: {DocumentFilePath}");
+        Console.WriteLine($"Hyperlinks: {string.Join(", ", HTMLDocumentHyperlinks)}");
+    }
 }
 
 public class DocumentManager {
     private static DocumentManager instance;
-    
+
     private DocumentManager() { }
-    
+
     public static DocumentManager Instance {
         get {
-            if (instance == null)
-            {
+            if (instance == null) {
                 instance = new DocumentManager();
             }
             return instance;
         }
     }
-    
-    public void DisplayDocumentInformation(Document document) {
-        Console.WriteLine("Document Information:");
-        Console.WriteLine($"Name: {document.Name}");
-        Console.WriteLine($"Author: {document.Author}");
-        Console.WriteLine($"Keywords: {string.Join(", ", document.Keywords)}");
-        Console.WriteLine($"Theme: {document.Theme}");
-        Console.WriteLine($"File Path: {document.FilePath}");
-        
-        if (document is WordDocument wordDocument) {
-            Console.WriteLine($"Page Count: {wordDocument.PageCount}");
-        }
-        else if (document is PdfDocument pdfDocument) {
-            Console.WriteLine($"Is Protected: {pdfDocument.IsProtected}");
-        }
-        else if (document is ExcelDocument excelDocument) {
-            Console.WriteLine($"Worksheet Count: {excelDocument.WorksheetCount}");
-        }
-        else if (document is TxtDocument txtDocument) {
-            Console.WriteLine($"Line Count: {txtDocument.LineCount}");
-        }
-        else if (document is HtmlDocument htmlDocument) {
-            Console.WriteLine($"Hyperlinks: {string.Join(", ", htmlDocument.Hyperlinks)}");
-        }
+
+    public void DisplayDocumentInfo (Document document) {
+        document.GetDocumentInfo();
     }
 }
 
-public class Program {
-    public static void Main(string[] args) {
+class Programm {
+    static void Main(string[] args) {
         DocumentManager documentManager = DocumentManager.Instance;
-        
-        // Create sample documents
-        WordDocument wordDocument = new WordDocument {
-            Name = "Sample Document",
-            Author = "John Doe",
-            Keywords = new string[] { "sample", "document", "csharp" },
-            Theme = "General",
-            FilePath = "path/to/word/document.docx",
-            PageCount = 10
+
+        MSWordDocument wordDocument = new MSWordDocument {
+            DocumentName = "laba otchet",
+            DocumentAuthor = "Joe Biden",
+            DocumentKeywords = [ "sleep", "Sleep", "sleeping" ],
+            DocumentTheme = "Programming",
+            DocumentFilePath = "C:/Documents/labaotchet.docx",
+            MSWordDocumentPageCount = 12
         };
-        
-        PdfDocument pdfDocument = new PdfDocument {
-            Name = "Sample PDF",
-            Author = "Jane Smith",
-            Keywords = new string[] { "sample", "pdf", "csharp" },
-            Theme = "General",
-            FilePath = "path/to/pdf/document.pdf",
-            IsProtected = true
+
+        PDFDocument pdfDocument = new PDFDocument {
+            DocumentName = "PDFDoc",
+            DocumentAuthor = "someone",
+            DocumentKeywords = [ "PDF", "Report", "Analysis" ],
+            DocumentTheme = "Data Science",
+            DocumentFilePath = "C:/Documents/PDFDoc.pdf",
+            PDFDocumentIsSecured = true
         };
-        
-        // Display document information
-        documentManager.DisplayDocumentInformation(wordDocument);
-        documentManager.DisplayDocumentInformation(pdfDocument);
+
+
+        documentManager.DisplayDocumentInfo(wordDocument);
+        Console.WriteLine();
+        documentManager.DisplayDocumentInfo(pdfDocument);
     }
 }
