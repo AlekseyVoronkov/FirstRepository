@@ -103,8 +103,7 @@ namespace WindowsFormsApp3
             if (matrix1.size > matrix2.size)
             {
                 return true;
-            }
-            else
+            } else
             {
                 return false;
             }
@@ -115,8 +114,7 @@ namespace WindowsFormsApp3
             if (matrix1.size <= matrix2.size)
             {
                 return true;
-            }
-            else
+            } else
             {
                 return false;
             }
@@ -127,8 +125,7 @@ namespace WindowsFormsApp3
             if (matrix1.size >= matrix2.size)
             {
                 return true;
-            }
-            else
+            } else
             {
                 return false;
             }
@@ -139,8 +136,7 @@ namespace WindowsFormsApp3
             if (matrix1.size == matrix2.size)
             {
                 return true;
-            }
-            else
+            } else
             {
                 return false;
             }
@@ -151,8 +147,7 @@ namespace WindowsFormsApp3
             if (matrix1.size != matrix2.size)
             {
                 return true;
-            }
-            else
+            } else
             {
                 return false;
             }
