@@ -49,13 +49,16 @@ namespace WindowsFormsApp3
     {
       public object Clone()
       {
-        MatrixClone result = new MatrixClone();
+        SquareMatrix clone = new SquareMatrix(size);
+        clone = (SquareMatrix)MemberwiseClone();
+
+        for (int rowIndex = 0; rowIndex < size; ++rowIndex)
         {
-          result.size = this.size;
-          result.matrix = this.matrix;
-          result.deepStructure.RandomThing = this.deepStructure.RandomThing;
-          result.deepStructure.AnotherRandomThing = this.deepStructure.AnotherRandomThing;
-        };
+          for (int cloneIndex = 0; cloneIndex < size; ++cloneIndex)
+          {
+          clone = clone.matrix[rowIndex, cloneIndex];
+          }
+        }
 
         return result;
       }
