@@ -127,7 +127,7 @@ public class TextFileSearch
 
         Console.WriteLine("Type your directory path: ");
 
-        string directoryPath = $@"{Convert.ToString(Console.ReadLine())}";
+        string directoryPath = $"{Convert.ToString(Console.ReadLine())}";
         string[] keywords;
         keywords = new string[numberOfKeywords];
 
@@ -171,87 +171,106 @@ public class TextFileSearch
 
 class Program
 {
-    static async Task Main()
+    static void Main()
     {
-        TextFileHistory history = new TextFileHistory();
-        TextFile file = new TextFile { FileName = "example.txt", Content = "Sample text content." };
+        bool isProgramRunning = true;
 
-        Console.WriteLine("What do you want to do?");
-        Console.WriteLine("1 - Text File Redactor");
-        Console.WriteLine("2 - index text files in a specified directory based on given keywords");
-
-        int userChoice = Convert.ToInt32(Console.ReadLine());
-
-        if (userChoice != 1 && userChoice != 2)
+        while (isProgramRunning)
         {
-            Console.WriteLine("I'm pretty sure that this was neither 1 nor 2. Shame on you.");
-        }
+            TextFileHistory history = new TextFileHistory();
 
-        if (userChoice == 1)
-        {
-            Console.WriteLine();
-            Console.WriteLine("Welcome to the Text File Editor!");
-            Console.WriteLine("Enter your text (type 'SaveFile' to save and exit):");
-            Console.WriteLine("Type 'Undo' to open last saved fersion of the file");
-            Console.WriteLine("Type 'Imdonewithit' to close this app");
+            Console.WriteLine("What do you want to do?");
+            Console.WriteLine("1 - Text File Editor");
+            Console.WriteLine("2 - Index text files in a specified directory based on given keywords");
+            Console.WriteLine("3 - Close this app");
 
-            bool textRedactorLoop = true;
-            while (textRedactorLoop)
+            int userChoice = Convert.ToInt32(Console.ReadLine());
+
+            if (userChoice != 1 && userChoice != 2 && userChoice != 3)
             {
-                string input = Console.ReadLine();
+                Console.WriteLine("I'm pretty sure that this was neither 1 nor 2. Shame on you.");
+            }
 
-                if (input != "SaveFile" && input != "Undo" && input != "imdonewithit")
-                {
-                    file.WriteText(input);
-                }
+            if (userChoice == 1)
+            {
+                TextFile textFileForEdit = new TextFile { FileName = "", Content = "" };
 
-                if (input == "SaveFile")
-                {
-                    history.Save(file.Save());
-                }
+                Console.WriteLine();
+                Console.WriteLine("Welcome to the Text File Editor!");
+                Console.WriteLine("You need to type in name of your file");
 
-                if (input == "Undo")
-                {
-                    file.Restore(history.GetLastSavedState());
-                    Console.WriteLine("//This is your last saved file//");
-                    Console.WriteLine(file.GetContent());
-                }
+                textFileForEdit.FileName = Console.ReadLine();
 
-                if (input == "Imdonewithit")
+                Console.WriteLine("//List of commands//");
+                Console.WriteLine("Enter your text (type 'SaveFile' to... Save your file");
+                Console.WriteLine("Type 'Undo' to open last saved version of the file");
+                Console.WriteLine("Type 'Imdonewithit' to close text editor");
+
+                bool textRedactorLoop = true;
+                while (textRedactorLoop)
                 {
-                    using (FileStream filestream = new FileStream(file.GetName(), FileMode.Create))
+                    string input = Console.ReadLine();
+
+                    if (input != "SaveFile" && input != "Undo" && input != "imdonewithit")
                     {
-                        byte[] buffer = Encoding.Default.GetBytes(file.GetContent());
-                        await filestream.WriteAsync(buffer, 0, buffer.Length);
-                        Console.WriteLine("Text in the file now (i hope).");
+                        textFileForEdit.WriteText(input);
                     }
-                    textRedactorLoop = false;
+
+                    if (input == "SaveFile")
+                    {
+                        history.Save(textFileForEdit.Save());
+                        using (FileStream filestream = new FileStream(textFileForEdit.GetName(), FileMode.Create))
+                        {
+                            byte[] buffer = Encoding.Default.GetBytes(textFileForEdit.GetContent());
+                            filestream.WriteAsync(buffer, 0, buffer.Length);
+                        }
+                        Console.WriteLine("Saved!\n");
+                    }
+
+                    if (input == "Undo")
+                    {
+                        textFileForEdit.Restore(history.GetLastSavedState());
+                        Console.WriteLine("//This is your last saved file//");
+                        Console.WriteLine(textFileForEdit.GetContent());
+                    }
+
+                    if (input == "Imdonewithit")
+                    {
+                        textRedactorLoop = false;
+                    }
                 }
             }
-        }
 
-        if (userChoice == 2)
-        {
-            bool indexThingLoop = true;
-            string endSearchOrNo;
-            while (indexThingLoop)
+            if (userChoice == 2)
             {
-                TextFileSearch fileSearch = new TextFileSearch();
-                fileSearch.SearchFilesByKeyword();
+                bool indexThingLoop = true;
+                string endSearchOrNo;
 
-                Console.WriteLine("Search again? y/n");
-                endSearchOrNo = Console.ReadLine();
-
-                if (endSearchOrNo != "y" && endSearchOrNo != "n") 
+                while (indexThingLoop)
                 {
-                    Console.WriteLine("you must type in y or n. Try again: ");
+                    TextFileSearch fileSearch = new TextFileSearch();
+                    fileSearch.SearchFilesByKeyword();
+
+                    Console.WriteLine("Search again? y/n");
                     endSearchOrNo = Console.ReadLine();
 
-                } else if (endSearchOrNo == "n")
-                {
-                    indexThingLoop = false;
+                    if (endSearchOrNo != "y" && endSearchOrNo != "n")
+                    {
+                        Console.WriteLine("you must type in y or n. Try again: ");
+                        endSearchOrNo = Console.ReadLine();
+
+                    }
+                    else if (endSearchOrNo == "n")
+                    {
+                        indexThingLoop = false;
+                    }
                 }
-            }      
+            }
+
+            if (userChoice == 3)
+            {
+                isProgramRunning = false;
+            }
         }
     }
 }
